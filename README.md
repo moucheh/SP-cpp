@@ -23,7 +23,4 @@ Za koristenje prethodne komande, potreban je alat git, koji je moguce preuzeti p
 
 Azuriranje repozitorija je moguce komandom (terminal mora biti otvoren u direktoriju u kojem je repozitorij sacuvan):
 
-    git pull --rebase
-=======
-# SP-cpp
->>>>>>> 7141fe7 (Zadaca 1 / Duration)
+    git pull
