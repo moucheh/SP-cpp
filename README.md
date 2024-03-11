@@ -2,7 +2,7 @@
 
 Moguce je preuzeti citav repozitorij unosenjem komande ispod u terminal:
 
-     git clone https://github.com/moucheh/OOP-cpp.git
+     git clone https://github.com/moucheh/SP-cpp.git
 
 Za koristenje prethodne komande, potreban je alat git, koji je moguce preuzeti pomocu nekog od package managera:
 
