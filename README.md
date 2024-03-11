@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # SP-cpp repozitorij
 
 Moguce je preuzeti citav repozitorij unosenjem komande ispod u terminal:
