@@ -18,11 +18,11 @@ Duration& Duration::set_m(int m) {
 		throw std::out_of_range{
 		"Broj minuta ne smije biti manji od 0!"
 	};
-	_m = m;
 	if (m >= 60)
 		throw std::out_of_range{
 		"Broj minuta ne smije biti veci od 60!"
 	};
+	_m = m;
 	return *this;
 }
 
