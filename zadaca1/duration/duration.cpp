@@ -110,17 +110,12 @@ Duration& Duration::operator/=(int skalar) {
 }
 
 std::ostream& operator<<(std::ostream& out, const Duration& dd) {
-	out << ((std::to_string(dd.get_h()).length() == 1) ?
-			std::string("0") + std::to_string(dd.get_h()) :
-			std::to_string(dd.get_h())) << ':'
-		<< ((std::to_string(dd.get_m()).length() == 1) ?
-			std::string("0") + std::to_string(dd.get_m()) :
-			std::to_string(dd.get_m())) << ':'
-		<< ((std::to_string(dd.get_s()).length() == 1) ?
-			std::string("0") + std::to_string(dd.get_s()) :
-			std::to_string(dd.get_s()));
+	out << std::setfill('0') << std::setw(2) << dd.get_h() << ':'
+		<< std::setfill('0') << std::setw(2) << dd.get_m() << ':'
+		<< std::setfill('0') << std::setw(2) << dd.get_s();
 	return out;
 }
+
 std::istream& operator>>(std::istream& in, Duration& dd) {
 	std::string input;
 	in >> input;
