@@ -35,8 +35,7 @@ Rational::Rational(int numerator, int denominator) {
 }
 
 Rational::Rational(const char* rational) {
-	std::string str = rational;
-	*this = Rational(str);
+	*this = Rational(std::string(rational));
 }
 
 Rational::Rational(const std::string& str) {
