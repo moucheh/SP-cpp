@@ -21,6 +21,7 @@ public:
 	class iterator;
 	class reverse_iterator;
 	class const_iterator;
+	class const_reverse_iterator;
 
 	List() = default;
 	List(const std::initializer_list<T>&);
@@ -41,6 +42,9 @@ public:
 
 	const_iterator cbegin() const;
 	const_iterator cend() const;
+
+	const_reverse_iterator crbegin() const;
+	const_reverse_iterator crend() const;
 
 	void push_back(const T& element);
 	void push_front(const T& element);
@@ -93,6 +97,10 @@ public:
 		return _ptr->data;
 	}
 
+	const T& operator*() const {
+		return _ptr->data;
+	}
+
 	bool operator==(const iterator& other) const {
 		return _ptr == other._ptr;
 	}
@@ -134,6 +142,10 @@ public:
 		return _ptr->data;
 	}
 
+	const T& operator*() const {
+		return _ptr->data;
+	}
+
 	bool operator==(const reverse_iterator& other) const {
 		return _ptr == other._ptr;
 	}
@@ -151,23 +163,23 @@ public:
 	const_iterator(Node* ptr) : _ptr{ptr} {}
 
 	const_iterator& operator++() {
-		_ptr = _ptr->prev;
+		_ptr = _ptr->next;
 		return *this;
 	}
 
 	const_iterator operator++(int) {
 		auto temp = _ptr;
-		_ptr = _ptr->prev;
+		_ptr = _ptr->next;
 		return temp;
 	}
 	const_iterator& operator--() {
-		_ptr = _ptr->next;
+		_ptr = _ptr->prev;
 		return *this;
 	}
 
 	const_iterator operator--(int) {
 		auto temp = _ptr;
-		_ptr = _ptr->next;
+		_ptr = _ptr->prev;
 		return temp;
 	}
 
@@ -180,6 +192,47 @@ public:
 	}
 
 	bool operator!=(const const_iterator& other) const {
+		return _ptr != other._ptr;
+	}
+private:
+	const Node* _ptr;
+};
+
+template<typename T>
+class List<T>::const_reverse_iterator {
+public:
+	const_reverse_iterator(Node* ptr) : _ptr{ptr} {}
+
+	const_reverse_iterator& operator++() {
+		_ptr = _ptr->prev;
+		return *this;
+	}
+
+	const_reverse_iterator operator++(int) {
+		auto temp = _ptr;
+		_ptr = _ptr->prev;
+		return temp;
+	}
+	const_reverse_iterator& operator--() {
+		_ptr = _ptr->next;
+		return *this;
+	}
+
+	const_reverse_iterator operator--(int) {
+		auto temp = _ptr;
+		_ptr = _ptr->next;
+		return temp;
+	}
+
+	const T& operator*() const {
+		return _ptr->data;
+	}
+
+	bool operator==(const const_reverse_iterator& other) const {
+		return _ptr == other._ptr;
+	}
+
+	bool operator!=(const const_reverse_iterator& other) const {
 		return _ptr != other._ptr;
 	}
 private:
@@ -413,6 +466,20 @@ typename List<T>::const_iterator List<T>::cend() const {
 	if (empty())
 		throw std::out_of_range{"The list is empty."};
 	return const_iterator{head->prev};
+}
+
+template<typename T>
+typename List<T>::const_reverse_iterator List<T>::crbegin() const {
+	if (empty())
+		throw std::out_of_range{"The list is empty."};
+	return const_reverse_iterator{tail};
+}
+
+template<typename T>
+typename List<T>::const_reverse_iterator List<T>::crend() const {
+	if (empty())
+		throw std::out_of_range{"The list is empty."};
+	return const_reverse_iterator{head->prev};
 }
 
 template<typename T>
