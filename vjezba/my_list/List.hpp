@@ -18,6 +18,7 @@ public:
 		Node* next{nullptr};
 		Node* prev{nullptr};
 	};
+
 	class iterator;
 	class reverse_iterator;
 	class const_iterator;
@@ -48,7 +49,7 @@ public:
 
 	void push_back(const T& element);
 	void push_front(const T& element);
-	void insert(const T& element, const int& position);
+	void insert(const T& element, int position);
 
 	void pop_back();
 	void pop_front();
@@ -58,8 +59,8 @@ public:
 	const T& back() const;
 	const T& front() const;
 
-	unsigned long size() const;
-	bool empty() const;
+	unsigned long size() const { return __size; }
+	bool empty() const { return !size(); }
 private:
 	unsigned long __size{};
 	Node* head{nullptr};
@@ -239,17 +240,6 @@ private:
 	const Node* _ptr;
 };
 
-
-template<typename T>
-unsigned long List<T>::size() const {
-	return __size;
-}
-
-template<typename T>
-bool List<T>::empty() const {
-	return !size();
-}
-
 template<typename T>
 List<T>::List(const std::initializer_list<T>& list) {
 	for (const auto& el : list)
@@ -342,7 +332,7 @@ void List<T>::push_front(const T& element) {
 }
 
 template<typename T>
-void List<T>::insert(const T& element, const int& position) {
+void List<T>::insert(const T& element, int position) {
 	if (position > size())
 		throw std::out_of_range(
 			std::string{"position("} +

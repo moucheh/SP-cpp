@@ -22,7 +22,7 @@ int main() {
 	c.push_front(99.4);
 	a.pop_front();
 	a.pop_back();
-	cout << "\na.size() = " << a.size() << endl;
+	cout << "a.size() = " << a.size() << endl;
 	cout << a;
 	cout << "\nb.size() = " << b.size() << endl;
 	cout << b;
@@ -37,7 +37,6 @@ int main() {
 		la.insert(69.32, 99);
 	} catch (const std::out_of_range& e) {
 		cout << e.what() << endl;
-		return 0;
 	}
 	cout << "la.size() = " << la.size() << endl;
 	cout << la;
