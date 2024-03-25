@@ -128,6 +128,7 @@ public:
 		_ptr = _ptr->prev;
 		return temp;
 	}
+
 	reverse_iterator& operator--() {
 		_ptr = _ptr->next;
 		return *this;
