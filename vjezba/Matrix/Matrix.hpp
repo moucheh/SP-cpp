@@ -90,8 +90,8 @@ T& Matrix<T>::at(size_t row, size_t column) {
 template<typename T>
 bool Matrix<T>::operator==(const Matrix<T>& other) const {
 	if (size() != other.size()) return false;
-	for (auto i = 0; i < size().first; ++i) {
-		for (auto j = 0; j < size().second; ++j) {
+	for (auto i = 0; i < matrix_.size(); ++i) {
+		for (auto j = 0; j < matrix_[i].size(); ++j) {
 			if (matrix_[i][j] != other.matrix_[i][j])
 				return false;
 		}
@@ -126,7 +126,7 @@ Matrix<T> Matrix<T>::operator+(const Matrix& other) const {
 	};
 	auto temp = *this;
 	for (auto i = 0; i < matrix_.size(); i++) {
-		for (auto j = 0; j < matrix_[i].size(); j++) {
+		for (auto j = 0; j < matrix_[0].size(); j++) {
 			temp.matrix_[i][j] += other.matrix_[i][j];
 		}
 	}
@@ -154,7 +154,7 @@ template<typename T>
 Matrix<T> Matrix<T>::operator*(T factor) const {
 	auto temp = *this;
 	for (auto i = 0; i < matrix_.size(); i++) {
-		for (auto j = 0; j < matrix_[i].size(); j++) {
+		for (auto j = 0; j < matrix_[0].size(); j++) {
 			temp.matrix_[i][j] *= factor;
 		}
 	}
@@ -165,7 +165,7 @@ template<typename T>
 std::vector<T> Matrix<T>::mainDiagonal() const {
 	std::vector<T> main;
 	for (auto i = 0; i < matrix_.size(); i++) {
-		for (auto j = 0; j < matrix_[i].size(); j++) {
+		for (auto j = 0; j < matrix_[0].size(); j++) {
 			if (i == j)
 				main.push_back(matrix_[i][j]);
 		}
@@ -177,7 +177,7 @@ template<typename T>
 std::vector<T> Matrix<T>::secondaryDiagonal() const {
 	std::vector<T> secondary;
 	for (auto i = 0; i < matrix_.size(); i++) {
-		for (auto j = 0; j < matrix_[i].size(); j++) {
+		for (auto j = 0; j < matrix_[0].size(); j++) {
 			if (i == size().first - j - 1)
 				secondary.push_back(matrix_[i][j]);
 		}
