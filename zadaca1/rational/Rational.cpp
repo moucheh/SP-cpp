@@ -30,8 +30,9 @@ Rational::Rational(int numerator, int denominator) {
 		throw std::invalid_argument{
 		"The denominator mustn't be zero!"
 	};
-	numerator_ = numerator;
-	denominator_ = denominator;
+	int _gcd = gcd(numerator, denominator);
+	numerator_ = numerator / _gcd;
+	denominator_ = denominator / _gcd;
 }
 
 Rational::Rational(const char* rational) {
@@ -74,14 +75,9 @@ std::ostream& operator<<(std::ostream& os, const Rational& rational) {
 Rational Rational::operator+(const Rational& rational) const {
 	if (numerator() == 0) return rational;
 	if (rational.numerator() == 0) return *this;
-	Rational result(
-		numerator() * rational.denominator() + rational.numerator() * denominator(),
-		denominator() * rational.denominator()
-	);
-	int _gcd = gcd(result.numerator(), result.denominator());
 	return Rational(
-			   result.numerator() / _gcd,
-			   result.denominator() / _gcd
+			   numerator() * rational.denominator() + rational.numerator() * denominator(),
+			   denominator() * rational.denominator()
 		   );
 }
 
@@ -93,14 +89,9 @@ Rational Rational::operator-(const Rational& rational) const {
 	if (numerator() == 0) return rational;
 	if (rational.numerator() == 0) return *this;
 	if (*this == rational) return Rational(0, 1);
-	Rational result(
-		numerator() * rational.denominator() - rational.numerator() * denominator(),
-		denominator() * rational.denominator()
-	);
-	int _gcd = gcd(result.numerator(), result.denominator());
 	return Rational(
-			   result.numerator() / _gcd,
-			   result.denominator() / _gcd
+			   numerator() * rational.denominator() - rational.numerator() * denominator(),
+			   denominator() * rational.denominator()
 		   );
 }
 
@@ -132,45 +123,25 @@ Rational Rational::operator--(int) {
 }
 
 Rational Rational::operator*(const Rational& rational) const {
-	Rational result(
-		numerator() * rational.numerator(),
-		denominator() * rational.denominator()
-	);
-	int _gcd = gcd(result.numerator(), result.denominator());
 	return Rational(
-			   result.numerator() / _gcd,
-			   result.denominator() / _gcd
+			   numerator() * rational.numerator(),
+			   denominator() * rational.denominator()
 		   );
 }
 
 Rational Rational::operator*(int numerator) const {
-	Rational result(this->numerator() * numerator, denominator());
-	int _gcd = gcd(result.numerator(), result.denominator());
-	return Rational(
-			   result.numerator() / _gcd,
-			   result.denominator() / _gcd
-		   );
+	return Rational(this->numerator() * numerator, denominator());
 }
 
 Rational Rational::operator/(const Rational& rational) const {
-	Rational result(
-		numerator() * rational.denominator(),
-		denominator() * rational.numerator()
-	);
-	int _gcd = gcd(result.numerator(), result.denominator());
 	return Rational(
-			   result.numerator() / _gcd,
-			   result.denominator() / _gcd
+			   numerator() * rational.denominator(),
+			   denominator() * rational.numerator()
 		   );
 }
 
 Rational Rational::operator/(int numerator) const {
-	Rational result(this->numerator(), denominator() * numerator);
-	int _gcd = gcd(result.numerator(), result.denominator());
-	return Rational(
-			   result.numerator() / _gcd,
-			   result.denominator() / _gcd
-		   );
+	return Rational(this->numerator(), denominator() * numerator);
 }
 
 Rational Rational::operator^(int exponent) const {
@@ -202,4 +173,20 @@ bool Rational::operator!=(const Rational& rational) const {
 bool Rational::operator!=(const char* rational) const {
 	Rational temp(rational);
 	return *this != temp;
+}
+
+bool Rational::operator<(const Rational& rational) const {
+	return numerator_ * rational.denominator_ < rational.numerator_ * denominator_;
+}
+
+bool Rational::operator>(const Rational& rational) const {
+	return numerator_ * rational.denominator_ > rational.numerator_ * denominator_;
+}
+
+bool Rational::operator<=(const Rational& rational) const {
+	return numerator_ * rational.denominator_ <= rational.numerator_ * denominator_;
+}
+
+bool Rational::operator>=(const Rational& rational) const {
+	return numerator_ * rational.denominator_ <= rational.numerator_ * denominator_;
 }

@@ -75,6 +75,11 @@ public:
 	bool operator!=(const Rational& rational) const;
 	bool operator!=(const char* rational) const;
 
+	bool operator<(const Rational& rational) const;
+	bool operator>(const Rational& rational) const;
+	bool operator<=(const Rational& rational) const;
+	bool operator>=(const Rational& rational) const;
+
 	const int numerator() const { return numerator_; }
 	const int denominator() const { return denominator_; }
 
