@@ -18,10 +18,10 @@ void f1_teams::input(std::istream& input) {
 
 f1_teams f1_teams::filter() const {
 	f1_teams result;
-	for (auto& outer : *this) {
+	for (const auto& outer : *this) {
 		if (outer.number_of_championships == 0) continue;
 		f1_team new_f1_team;
-		for (auto& inner : *this) {
+		for (const auto& inner : *this) {
 			if (outer.team_name == inner.team_name &&
 					outer.country_of_origin == inner.country_of_origin) {
 				new_f1_team.team_name = outer.team_name;
