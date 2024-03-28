@@ -48,11 +48,13 @@ Duration::Duration(int t) : _t{t} {
 }
 
 Duration::Duration(std::string str) {
-	set_h(std::stoi(str.substr(0, str.find(':'))));
-	str = str.substr(str.find(':') + 1, str.length());
-	set_m(std::stoi(str.substr(0, str.find(':'))));
-	str = str.substr(str.find(':') + 1, str.length());
-	set_s(std::stoi(str));
+	std::istringstream iss{str};
+	int h, m, s;
+	char delimiter;
+	iss >> h >> delimiter >> m >> delimiter >> s;
+	set_h(h);
+	set_m(m);
+	set_s(s);
 	_t = 3600 * _h + 60 * _m + _s;
 }
 
