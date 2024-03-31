@@ -40,6 +40,11 @@ int main(int argc, char** argv) {
 			break;
 		}
 	}
+	if (option_index == -1) {
+		std::cout << "Error, option not specified, run ./wcp -h to get help\n";
+		input.close();
+		return 1;
+	}
 	int output_index = -1;
 	if (strcmp(argv[option_index], "5") != 0) {
 		for (auto i = 1; i < argc; i++)
