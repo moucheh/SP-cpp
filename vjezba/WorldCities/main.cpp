@@ -1,12 +1,63 @@
 #include "WorldCities.hpp"
 
-int main() {
-	std::ifstream input("WorldCities.csv");
-	if (!input) {
-		std::cout << "Error 404. File not found!";
+int main(int argc, char** argv) {
+	if (argc == 1) {
+		std::cout << "Error, no arguments provided, run ./wcp -h to get help\n";
+		return 0;
+	}
+	if (strcmp(argv[1], "--version") == 0 ||
+			strcmp(argv[1], "-v") == 0) {
+		std::cout << "WorldCityParser version: 1.0\n";
+		return 0;
+	}
+	if (strcmp(argv[1], "--help") == 0 ||
+			strcmp(argv[1], "-h") == 0) {
+		help();
+		return 0;
+	}
+	int input_index = -1;
+	for (auto i = 1; i < argc; i++) {
+		if (strcmp(argv[i], "-i") == 0 ||
+				strcmp(argv[i], "--input") == 0) {
+			input_index = i + 1;
+			break;
+		}
+	}
+	if (input_index == -1) {
+		std::cout << "Error, input file not specified, run ./wcp -h to get help\n";
 		return 1;
 	}
-	std::ofstream output("output.txt");
+	std::ifstream input(argv[input_index]);
+	if (!input) {
+		std::cout << "Error 404. File not found!\n";
+		return 1;
+	}
+	int option_index = -1;
+	for (auto i = 1; i < argc; i++) {
+		if (strcmp(argv[i], "-p") == 0 ||
+				strcmp(argv[i], "--option") == 0) {
+			option_index = i + 1;
+			break;
+		}
+	}
+	int output_index = -1;
+	if (strcmp(argv[option_index], "5") != 0) {
+		for (auto i = 1; i < argc; i++)
+			if (strcmp(argv[i], "-o") == 0 ||
+					strcmp(argv[i], "--output") == 0) {
+				output_index = i + 1;
+				break;
+			}
+	} else {
+		output_index = -2;
+	}
+	std::ofstream output;
+	if (output_index == -2)
+		output.close();
+	else if (output_index == -1)
+		output.open("output.txt");
+	else
+		output.open(argv[output_index]);
 	std::string titles;
 	std::getline(input, titles);
 	std::string entry;
@@ -33,14 +84,12 @@ int main() {
 		}
 		countries.push_back(newCountry);
 	}
-	menu();
+	std::istringstream option_ss{argv[option_index]};
 	int choice;
-	std::cin >> choice;
-	const char* message = "Result outputed to output.txt\n";
+	option_ss >> choice;
 	if (choice == 1) {
 		std::cout << "Enter country name: ";
 		std::string requested_country;
-		std::cin.ignore();
 		std::getline(std::cin, requested_country);
 		if (countriesSorted[requested_country].empty()) {
 			std::cout << "Invalid country.\n";
@@ -56,11 +105,10 @@ int main() {
 		});
 		for (const auto& city : countriesSorted[requested_country])
 			output << city << "\n\n";
-		std::cout << message;
+		std::cout << "Result outputed to " << argv[output_index] << '\n';
 	} else if (choice == 2) {
 		std::cout << "Enter country name: ";
 		std::string requested_country;
-		std::cin.ignore();
 		std::getline(std::cin, requested_country);
 		if (countriesSorted[requested_country].empty()) {
 			std::cout << "Invalid country.\n";
@@ -76,7 +124,7 @@ int main() {
 		});
 		for (const auto& city : countriesSorted[requested_country])
 			output << city << "\n\n";
-		std::cout << message;
+		std::cout << "Result outputed to " << argv[output_index] << '\n';
 	} else if (choice == 3) {
 		std::sort(
 			countries.begin(),
@@ -86,15 +134,14 @@ int main() {
 		});
 		for (const auto& country : countries)
 			output << country << "\n\n";
-		std::cout << message;
+		std::cout << "Result outputed to " << argv[output_index] << '\n';
 	} else if (choice == 4) {
 		for (const auto& country : countries)
 			output << country << "\n\n";
-		std::cout << message;
+		std::cout << "Result outputed to " << argv[output_index] << '\n';
 	} else if (choice == 5) {
 		std::cout << "Enter city name: ";
 		std::string requested_city;
-		std::cin.ignore();
 		std::getline(std::cin, requested_city);
 		bool found = false;
 		for (const auto& city : cities)
@@ -106,7 +153,6 @@ int main() {
 		if (!found) {
 			std::cout << "Invalid city.\n";
 			input.close();
-			output.close();
 			return 1;
 		}
 	} else if (choice == 6) {
@@ -122,7 +168,7 @@ int main() {
 				   << country.name << '\n'
 				   << separator << '\n';
 		}
-		std::cout << "Result outputed to output.txt\n";
+		std::cout << "Result outputed to " << argv[output_index] << '\n';
 	} else if (choice == 7) {
 		const std::string separator(90, '-');
 		output << separator << '\n'
@@ -142,9 +188,9 @@ int main() {
 				   << country.name << '\n'
 				   << separator << '\n';
 		}
-		std::cout << "Result outputed to output.txt\n";
+		std::cout << "Result outputed to " << argv[output_index] << '\n';
 	}
-	input.close();
 	output.close();
+	input.close();
 	return 0;
 }

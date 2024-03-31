@@ -6,6 +6,7 @@
 #include <fstream>
 #include <algorithm>
 #include <map>
+#include <cstring>
 
 struct WorldCity {
 	std::string name;
@@ -34,5 +35,5 @@ std::ostream& operator<<(std::ostream& os, const WorldCity& city);
 std::ostream& operator<<(std::ostream& os, const WorldCities& cities);
 std::istream& operator>>(std::istream& is, WorldCities& cities);
 
-void menu();
+void help();
 int utf8_length(const std::string& s);

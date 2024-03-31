@@ -56,16 +56,22 @@ std::istream& operator>>(std::istream& is, WorldCities& cities) {
 	return is;
 }
 
-void menu() {
-	std::cout << "Options\n"
-			  << "1. Print all cities from a country sorted by population\n"
-			  << "2. Print all cities from a country sorted A-Z\n"
-			  << "3. Print all countries sorted by population\n"
-			  << "4. Print all countries sorted A-Z\n"
-			  << "5. Print a city by name\n"
-			  << "6. Print all capital cities\n"
-			  << "7. Print all largest cities\n"
-			  << "Choose: ";
+void help() {
+	std::cout << "--WorldCities Parser--\n"
+			  << "Usage:\n"
+			  << "./wcp [options...]\n"
+			  << " -i, --input <path_to_file>   Specify path to input file\n"
+			  << " -o, --output <path_to_file>  Specify the path to the output file\n"
+			  << " -p, --option <number>        Specify option by number\n"
+			  << " -v, --version                Print program version\n"
+			  << " -h, --help                   Print help\n"
+			  << " 1, Print all cities from a country sorted by population\n"
+			  << " 2, Print all cities from a country sorted A-Z\n"
+			  << " 3, Print all countries sorted by population\n"
+			  << " 4, Print all countries sorted A-Z\n"
+			  << " 5, Print a city by name to stdout\n"
+			  << " 6, Print all capital cities\n"
+			  << " 7, Print all largest cities\n";
 }
 
 int utf8_length(const std::string& s) {
