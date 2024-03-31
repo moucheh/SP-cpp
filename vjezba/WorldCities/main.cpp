@@ -52,12 +52,16 @@ int main(int argc, char** argv) {
 		output_index = -2;
 	}
 	std::ofstream output;
+	std::string output_file;
 	if (output_index == -2)
 		output.close();
-	else if (output_index == -1)
+	else if (output_index == -1) {
 		output.open("output.txt");
-	else
+		output_file = "output.txt";
+	} else {
 		output.open(argv[output_index]);
+		output_file = argv[output_index];
+	}
 	std::string titles;
 	std::getline(input, titles);
 	std::string entry;
@@ -105,7 +109,7 @@ int main(int argc, char** argv) {
 		});
 		for (const auto& city : countriesSorted[requested_country])
 			output << city << "\n\n";
-		std::cout << "Result outputed to " << argv[output_index] << '\n';
+		std::cout << "Result outputed to " << output_file << '\n';
 	} else if (choice == 2) {
 		std::cout << "Enter country name: ";
 		std::string requested_country;
@@ -124,7 +128,7 @@ int main(int argc, char** argv) {
 		});
 		for (const auto& city : countriesSorted[requested_country])
 			output << city << "\n\n";
-		std::cout << "Result outputed to " << argv[output_index] << '\n';
+		std::cout << "Result outputed to " << output_file << '\n';
 	} else if (choice == 3) {
 		std::sort(
 			countries.begin(),
@@ -134,11 +138,11 @@ int main(int argc, char** argv) {
 		});
 		for (const auto& country : countries)
 			output << country << "\n\n";
-		std::cout << "Result outputed to " << argv[output_index] << '\n';
+		std::cout << "Result outputed to " << output_file << '\n';
 	} else if (choice == 4) {
 		for (const auto& country : countries)
 			output << country << "\n\n";
-		std::cout << "Result outputed to " << argv[output_index] << '\n';
+		std::cout << "Result outputed to " << output_file << '\n';
 	} else if (choice == 5) {
 		std::cout << "Enter city name: ";
 		std::string requested_city;
@@ -168,7 +172,7 @@ int main(int argc, char** argv) {
 				   << country.name << '\n'
 				   << separator << '\n';
 		}
-		std::cout << "Result outputed to " << argv[output_index] << '\n';
+		std::cout << "Result outputed to " << output_file << '\n';
 	} else if (choice == 7) {
 		const std::string separator(90, '-');
 		output << separator << '\n'
@@ -188,7 +192,7 @@ int main(int argc, char** argv) {
 				   << country.name << '\n'
 				   << separator << '\n';
 		}
-		std::cout << "Result outputed to " << argv[output_index] << '\n';
+		std::cout << "Result outputed to " << output_file << '\n';
 	} else {
 		std::cout << "Ivalid option.\n";
 	}
