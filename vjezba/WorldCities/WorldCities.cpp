@@ -65,13 +65,13 @@ void help() {
 			  << " -p, --option <number>        Specify option by number\n"
 			  << " -v, --version                Print version\n"
 			  << " -h, --help                   Print help\n"
-			  << " 1, Print all cities from a country sorted by population\n"
-			  << " 2, Print all cities from a country sorted A-Z\n"
-			  << " 3, Print all countries sorted by population\n"
-			  << " 4, Print all countries sorted A-Z\n"
-			  << " 5, Print a city by name to stdout\n"
-			  << " 6, Print all capital cities\n"
-			  << " 7, Print all largest cities\n";
+			  << "  1, Print all cities from a country sorted by population\n"
+			  << "  2, Print all cities from a country sorted A-Z\n"
+			  << "  3, Print all countries sorted by population\n"
+			  << "  4, Print all countries sorted A-Z\n"
+			  << "  5, Print a city by name to stdout\n"
+			  << "  6, Print all capital cities\n"
+			  << "  7, Print all largest cities\n";
 }
 
 int utf8_length(const std::string& s) {

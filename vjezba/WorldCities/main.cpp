@@ -7,7 +7,7 @@ int main(int argc, char** argv) {
 	}
 	if (strcmp(argv[1], "--version") == 0 ||
 			strcmp(argv[1], "-v") == 0) {
-		std::cout << "WorldCityParser version: 1.0\n";
+		std::cout << "WorldCitiesParser version: 1.0\n";
 		return 0;
 	}
 	if (strcmp(argv[1], "--help") == 0 ||
@@ -199,7 +199,7 @@ int main(int argc, char** argv) {
 		}
 		std::cout << "Result outputed to " << output_file << '\n';
 	} else {
-		std::cout << "Ivalid option.\n";
+		std::cout << "Ivalid option, run ./wcp -h to get help\n";
 	}
 	output.close();
 	input.close();
