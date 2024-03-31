@@ -189,6 +189,8 @@ int main(int argc, char** argv) {
 				   << separator << '\n';
 		}
 		std::cout << "Result outputed to " << argv[output_index] << '\n';
+	} else {
+		std::cout << "Ivalid option.\n";
 	}
 	output.close();
 	input.close();
