@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
 			break;
 		}
 	}
-	if (input_index == -1) {
+	if (input_index == -1 || input_index >= argc) {
 		std::cout << "Error, input file not specified, run ./wcp -h to get help\n";
 		return 1;
 	}
@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
 			break;
 		}
 	}
-	if (option_index == -1) {
+	if (option_index == -1 || option_index >= argc) {
 		std::cout << "Error, option not specified, run ./wcp -h to get help\n";
 		input.close();
 		return 1;
@@ -60,7 +60,7 @@ int main(int argc, char** argv) {
 	std::string output_file;
 	if (output_index == -2)
 		output.close();
-	else if (output_index == -1) {
+	else if (output_index == -1 || output_index >= argc) {
 		output.open("output.txt");
 		output_file = "output.txt";
 	} else {
