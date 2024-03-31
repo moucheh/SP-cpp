@@ -57,7 +57,7 @@ std::istream& operator>>(std::istream& is, WorldCities& cities) {
 }
 
 void help() {
-	std::cout << "--WorldCities Parser--\n"
+	std::cout << "--WorldCitiesParser--\n"
 			  << "Usage:\n"
 			  << "./wcp [options...]\n"
 			  << " -i, --input <path_to_file>   Specify path to input file\n"

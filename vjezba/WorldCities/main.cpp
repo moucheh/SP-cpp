@@ -2,7 +2,7 @@
 
 int main(int argc, char** argv) {
 	if (argc == 1) {
-		std::cout << "Error, no arguments provided, run ./wcp -h to get help\n";
+		std::cout << "No arguments provided, run ./wcp -h to get help\n";
 		return 0;
 	}
 	if (strcmp(argv[1], "--version") == 0 ||
