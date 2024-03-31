@@ -27,6 +27,10 @@ int main(int argc, char** argv) {
 		std::cout << "Error, input file not specified, run ./wcp -h to get help\n";
 		return 1;
 	}
+	if (std::string(argv[input_index]).find(".csv") == std::string::npos) {
+		std::cout << "Invalid file extension.\n";
+		return 1;
+	}
 	std::ifstream input(argv[input_index]);
 	if (!input) {
 		std::cout << "Error 404. File not found!\n";
