@@ -52,6 +52,7 @@ int main(int argc, char** argv) {
 			break;
 		}
 	}
+
 	if (option_index == -1 || option_index >= argc) {
 		std::cout << "Error, option not specified, run ./wcp -h to get help\n";
 		input.close();
@@ -140,6 +141,7 @@ int main(int argc, char** argv) {
 		for (const auto& city : countriesSorted[requested_country])
 			output << city << '\n';
 		std::cout << "Result outputed to " << output_file << '\n';
+
 	} else if (choice == 2) {
 		std::cout << "Enter country name: ";
 		std::string requested_country;
@@ -165,6 +167,7 @@ int main(int argc, char** argv) {
 		for (const auto& city : countriesSorted[requested_country])
 			output << city << '\n';
 		std::cout << "Result outputed to " << output_file << '\n';
+
 	} else if (choice == 3) {
 		std::sort(
 			countries.begin(),
@@ -180,6 +183,7 @@ int main(int argc, char** argv) {
 		for (const auto& country : countries)
 			output << country << '\n';
 		std::cout << "Result outputed to " << output_file << '\n';
+
 	} else if (choice == 4) {
 		const std::string separator(50, '-');
 
@@ -190,6 +194,7 @@ int main(int argc, char** argv) {
 		for (const auto& country : countries)
 			output << country << '\n';
 		std::cout << "Result outputed to " << output_file << '\n';
+
 	} else if (choice == 5) {
 		std::cout << "Enter city name: ";
 		std::string requested_city;
@@ -208,6 +213,7 @@ int main(int argc, char** argv) {
 			input.close();
 			return 1;
 		}
+
 	} else if (choice == 6) {
 		std::sort(countries.begin(), countries.end(),
 		[](auto a, auto b) {
@@ -231,6 +237,7 @@ int main(int argc, char** argv) {
 				   << separator << '\n';
 		}
 		std::cout << "Result outputed to " << output_file << '\n';
+
 	} else if (choice == 7) {
 		std::sort(countries.begin(), countries.end(),
 		[](auto a, auto b) {
