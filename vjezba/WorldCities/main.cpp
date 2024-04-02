@@ -169,6 +169,10 @@ int main(int argc, char** argv) {
 			return 1;
 		}
 	} else if (choice == 6) {
+		std::sort(countries.begin(), countries.end(),
+		[](auto a, auto b) {
+			return a.capital->name < b.capital->name;
+		});
 		const std::string separator(75, '-');
 		output << separator << '\n'
 			   << "Capital" << std::string(23, ' ')
@@ -183,6 +187,10 @@ int main(int argc, char** argv) {
 		}
 		std::cout << "Result outputed to " << output_file << '\n';
 	} else if (choice == 7) {
+		std::sort(countries.begin(), countries.end(),
+		[](auto a, auto b) {
+			return a.largest_city->population > b.largest_city->population;
+		});
 		const std::string separator(90, '-');
 		output << separator << '\n'
 			   << "Largest City" << std::string(18, ' ')
