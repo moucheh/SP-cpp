@@ -5,16 +5,19 @@ int main(int argc, char** argv) {
 		std::cout << "No arguments provided, run ./wcp -h to get help\n";
 		return 0;
 	}
+
 	if (strcmp(argv[1], "--version") == 0 ||
 			strcmp(argv[1], "-v") == 0) {
 		std::cout << "WorldCitiesParser version: 1.0\n";
 		return 0;
 	}
+
 	if (strcmp(argv[1], "--help") == 0 ||
 			strcmp(argv[1], "-h") == 0) {
 		help();
 		return 0;
 	}
+
 	int input_index = -1;
 	for (auto i = 1; i < argc; i++) {
 		if (strcmp(argv[i], "-i") == 0 ||
@@ -23,19 +26,24 @@ int main(int argc, char** argv) {
 			break;
 		}
 	}
+
 	if (input_index == -1 || input_index >= argc) {
 		std::cout << "Error, input file not specified, run ./wcp -h to get help\n";
 		return 1;
 	}
-	if (std::string(argv[input_index]).find(".csv") == std::string::npos) {
+
+	int extension_check_index = std::string(argv[input_index]).find(".csv");
+	if (extension_check_index == std::string::npos || argv[input_index][extension_check_index + 4] != '\0') {
 		std::cout << "Invalid file extension.\n";
 		return 1;
 	}
+
 	std::ifstream input(argv[input_index]);
 	if (!input) {
 		std::cout << "Error 404. File not found!\n";
 		return 1;
 	}
+
 	int option_index = -1;
 	for (auto i = 1; i < argc; i++) {
 		if (strcmp(argv[i], "-p") == 0 ||
@@ -49,6 +57,7 @@ int main(int argc, char** argv) {
 		input.close();
 		return 1;
 	}
+
 	int output_index = -1;
 	if (strcmp(argv[option_index], "5") != 0) {
 		for (auto i = 1; i < argc; i++)
@@ -60,6 +69,7 @@ int main(int argc, char** argv) {
 	} else {
 		output_index = -2;
 	}
+
 	std::ofstream output;
 	std::string output_file;
 	if (output_index == -2)
@@ -71,6 +81,7 @@ int main(int argc, char** argv) {
 		output.open(argv[output_index]);
 		output_file = argv[output_index];
 	}
+
 	std::string titles;
 	std::getline(input, titles);
 	std::string entry;
@@ -79,9 +90,11 @@ int main(int argc, char** argv) {
 		std::istringstream iss(entry);
 		iss >> cities;
 	}
+
 	std::map<std::string, WorldCities> countriesSorted;
 	for (const auto& city : cities)
 		countriesSorted[city.country].push_back(city);
+
 	std::vector<Country> countries;
 	for (const auto& [country, cities] : countriesSorted) {
 		Country newCountry;
@@ -97,13 +110,16 @@ int main(int argc, char** argv) {
 		}
 		countries.push_back(newCountry);
 	}
+
 	std::istringstream option_ss{argv[option_index]};
 	int choice;
 	option_ss >> choice;
+
 	if (choice == 1) {
 		std::cout << "Enter country name: ";
 		std::string requested_country;
 		std::getline(std::cin, requested_country);
+
 		if (countriesSorted[requested_country].empty()) {
 			std::cout << "Invalid country.\n";
 			input.close();
@@ -116,6 +132,7 @@ int main(int argc, char** argv) {
 		[](auto a, auto b) {
 			return a.population > b.population;
 		});
+
 		const std::string separator(utf8_length(requested_country) + 32, '-');
 		output << separator << "\n "
 			   << requested_country << "'s cities sorted by population\n"
@@ -127,6 +144,7 @@ int main(int argc, char** argv) {
 		std::cout << "Enter country name: ";
 		std::string requested_country;
 		std::getline(std::cin, requested_country);
+
 		if (countriesSorted[requested_country].empty()) {
 			std::cout << "Invalid country.\n";
 			input.close();
@@ -143,6 +161,7 @@ int main(int argc, char** argv) {
 		output << separator << "\n "
 			   << requested_country << "'s cities sorted A-Z\n"
 			   << separator << '\n';
+
 		for (const auto& city : countriesSorted[requested_country])
 			output << city << '\n';
 		std::cout << "Result outputed to " << output_file << '\n';
@@ -153,6 +172,7 @@ int main(int argc, char** argv) {
 		[](auto a, auto b) {
 			return a.population > b.population;
 		});
+
 		const std::string separator(50, '-');
 		output << separator << '\n'
 			   << " Countries sorted by population\n"
@@ -162,9 +182,11 @@ int main(int argc, char** argv) {
 		std::cout << "Result outputed to " << output_file << '\n';
 	} else if (choice == 4) {
 		const std::string separator(50, '-');
+
 		output << separator << '\n'
 			   << " Countries sorted A-Z\n"
 			   << separator << '\n';
+
 		for (const auto& country : countries)
 			output << country << '\n';
 		std::cout << "Result outputed to " << output_file << '\n';
@@ -172,6 +194,7 @@ int main(int argc, char** argv) {
 		std::cout << "Enter city name: ";
 		std::string requested_city;
 		std::getline(std::cin, requested_city);
+
 		bool found = false;
 		for (const auto& city : cities)
 			if (city.name == requested_city) {
@@ -179,6 +202,7 @@ int main(int argc, char** argv) {
 				found = true;
 				break;
 			}
+
 		if (!found) {
 			std::cout << "Invalid city.\n";
 			input.close();
@@ -189,6 +213,7 @@ int main(int argc, char** argv) {
 		[](auto a, auto b) {
 			return a.capital->name < b.capital->name;
 		});
+
 		const std::string separator(75, '-');
 		output << separator << '\n'
 			   << " Capital city from each country\n"
@@ -197,6 +222,7 @@ int main(int argc, char** argv) {
 			   << " Capital" << std::string(23, ' ')
 			   << "| Country\n"
 			   << separator << '\n';
+
 		for (const auto& country : countries) {
 			const std::string white_space(30 - utf8_length(country.capital->name), ' ');
 			output << ' ' << country.capital->name
@@ -210,6 +236,7 @@ int main(int argc, char** argv) {
 		[](auto a, auto b) {
 			return a.largest_city->population > b.largest_city->population;
 		});
+
 		const std::string separator(95, '-');
 		output << separator << '\n'
 			   << " Largest city from each country country and its population\n"
@@ -219,6 +246,7 @@ int main(int argc, char** argv) {
 			   << "| Population" << std::string(7, ' ')
 			   << "| Country\n"
 			   << separator << '\n';
+
 		for (const auto& country : countries) {
 			const std::string white_space_pop(
 				30 - utf8_length(country.largest_city->name), ' ');
