@@ -116,8 +116,12 @@ int main(int argc, char** argv) {
 		[](auto a, auto b) {
 			return a.population > b.population;
 		});
+		const std::string separator(utf8_length(requested_country) + 32, '-');
+		output << separator << "\n "
+			   << requested_country << "'s cities sorted by population\n"
+			   << separator << '\n';
 		for (const auto& city : countriesSorted[requested_country])
-			output << city << "\n\n";
+			output << city << '\n';
 		std::cout << "Result outputed to " << output_file << '\n';
 	} else if (choice == 2) {
 		std::cout << "Enter country name: ";
@@ -135,8 +139,12 @@ int main(int argc, char** argv) {
 		[](auto a, auto b) {
 			return a.name < b.name;
 		});
+		const std::string separator(utf8_length(requested_country) + 22, '-');
+		output << separator << "\n "
+			   << requested_country << "'s cities sorted A-Z\n"
+			   << separator << '\n';
 		for (const auto& city : countriesSorted[requested_country])
-			output << city << "\n\n";
+			output << city << '\n';
 		std::cout << "Result outputed to " << output_file << '\n';
 	} else if (choice == 3) {
 		std::sort(
@@ -145,12 +153,20 @@ int main(int argc, char** argv) {
 		[](auto a, auto b) {
 			return a.population > b.population;
 		});
+		const std::string separator(50, '-');
+		output << separator << '\n'
+			   << " Countries sorted by population\n"
+			   << separator << '\n';
 		for (const auto& country : countries)
-			output << country << "\n\n";
+			output << country << '\n';
 		std::cout << "Result outputed to " << output_file << '\n';
 	} else if (choice == 4) {
+		const std::string separator(50, '-');
+		output << separator << '\n'
+			   << " Countries sorted A-Z\n"
+			   << separator << '\n';
 		for (const auto& country : countries)
-			output << country << "\n\n";
+			output << country << '\n';
 		std::cout << "Result outputed to " << output_file << '\n';
 	} else if (choice == 5) {
 		std::cout << "Enter city name: ";
@@ -175,12 +191,15 @@ int main(int argc, char** argv) {
 		});
 		const std::string separator(75, '-');
 		output << separator << '\n'
-			   << "Capital" << std::string(23, ' ')
+			   << " Capital city from each country\n"
+			   << separator << '\n'
+			   << separator << '\n'
+			   << " Capital" << std::string(23, ' ')
 			   << "| Country\n"
 			   << separator << '\n';
 		for (const auto& country : countries) {
 			const std::string white_space(30 - utf8_length(country.capital->name), ' ');
-			output << country.capital->name
+			output << ' ' << country.capital->name
 				   << white_space << "| "
 				   << country.name << '\n'
 				   << separator << '\n';
@@ -191,9 +210,12 @@ int main(int argc, char** argv) {
 		[](auto a, auto b) {
 			return a.largest_city->population > b.largest_city->population;
 		});
-		const std::string separator(90, '-');
+		const std::string separator(95, '-');
 		output << separator << '\n'
-			   << "Largest City" << std::string(18, ' ')
+			   << " Largest city from each country country and its population\n"
+			   << separator << '\n'
+			   << separator << '\n'
+			   << " Largest City" << std::string(18, ' ')
 			   << "| Population" << std::string(7, ' ')
 			   << "| Country\n"
 			   << separator << '\n';
@@ -202,7 +224,7 @@ int main(int argc, char** argv) {
 				30 - utf8_length(country.largest_city->name), ' ');
 			const std::string white_space_ctry(
 				15 - std::to_string(country.largest_city->population).size(), ' ');
-			output << country.largest_city->name
+			output << ' ' << country.largest_city->name
 				   << white_space_pop << "| "
 				   << country.largest_city->population
 				   << white_space_ctry << "  | "

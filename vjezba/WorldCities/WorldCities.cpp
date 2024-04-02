@@ -24,30 +24,39 @@ void WorldCities::input(std::istream& is) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Country& country) {
-	os << "Name: " << country.name << '\n'
-	   << "Capital: " << country.capital->name << '\n'
-	   << "Largest city: " << country.largest_city->name << '\n'
-	   << "Population: " << country.population << '\n'
-	   << "Number of cities: " << country.number_of_cities;
+	const std::string separator(50, '-');
+	os << separator << '\n'
+	   << " Name             | " << country.name << '\n'
+	   << separator << '\n'
+	   << " Capital          | " << country.capital->name << '\n'
+	   << separator << '\n'
+	   << " Largest city     | " << country.largest_city->name << '\n'
+	   << separator << '\n'
+	   << " Population       | " << country.population << '\n'
+	   << separator << '\n'
+	   << " Number of cities | " << country.number_of_cities << '\n'
+	   << separator << '\n';
 	return os;
 }
 
 
 std::ostream& operator<<(std::ostream& os, const WorldCity& city) {
-	os << "Name: " << city.name << '\n'
-	   << "Latitude: " << city.latitude << '\n'
-	   << "Longitude: " << city.longitude << '\n'
-	   << "Country: " << city.country << '\n'
-	   << "Status: " << city.status << '\n'
-	   << "Population: " << city.population << '\n'
-	   << "ID: " << city.id;
-	return os;
-}
-
-std::ostream& operator<<(std::ostream& os, const WorldCities& cities) {
-	for (const auto& city : cities)
-		os << city;
-	os << '\n';
+	const std::string separator(50, '-');
+	os << separator << '\n'
+	   << " Name       | " << city.name << '\n'
+	   << separator << '\n'
+	   << " Latitude   | " << city.latitude << '\n'
+	   << separator << '\n'
+	   << " Longitude  | " << city.longitude << '\n'
+	   << separator << '\n'
+	   << " Country    | " << city.country << '\n'
+	   << separator << '\n'
+	   << " Status     | " << city.status << '\n'
+	   << separator << '\n'
+	   << " Population | " << city.population << '\n'
+	   << separator << '\n'
+	   << " ID         | " << city.id << '\n'
+	   << separator << '\n';
 	return os;
 }
 

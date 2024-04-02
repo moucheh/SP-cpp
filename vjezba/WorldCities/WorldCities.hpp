@@ -32,7 +32,6 @@ struct Country : public std::vector<WorldCity> {
 
 std::ostream& operator<<(std::ostream& os, const Country& country);
 std::ostream& operator<<(std::ostream& os, const WorldCity& city);
-std::ostream& operator<<(std::ostream& os, const WorldCities& cities);
 std::istream& operator>>(std::istream& is, WorldCities& cities);
 
 void help();
