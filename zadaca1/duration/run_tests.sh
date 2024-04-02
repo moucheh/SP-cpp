@@ -14,7 +14,7 @@ for test_file in ${test_files}; do
   if g++ "$test_file" duration.cpp -o "${test_file%.cpp}" &> /dev/null; then 
       echo "Running $test_file"
       "./${test_file%.cpp}"
-      "rm ${test_file%.cpp}"
+      rm "${test_file%.cpp}"
   else
       echo -e "${RED}Desio se problem pri kompajliranju. Ovaj test primjer možete ručno kompajlirati komandom:"\
       "clang++ $test_file duration.cpp ili pogledajte file: ${test_file}${NORMAL}"
