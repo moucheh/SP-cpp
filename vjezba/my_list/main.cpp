@@ -1,8 +1,11 @@
 #include <iostream>
 #include "List.hpp"
+#include <list>
+#include <iomanip>
 using std::cout, std::endl;
 
 int main() {
+	std::list<int> helo;
 	List<double> a{1.4, 2.23, 3.41231, 4.34};
 	a.push_back(2);
 	List<double> b{a};
@@ -25,21 +28,18 @@ int main() {
 	cout << "a.size() = " << a.size() << endl;
 	cout << a;
 	cout << "\nb.size() = " << b.size() << endl;
-	cout << b;
-	cout << endl;
+	cout << b << endl;
 	cout << "c.size() = " << c.size() << endl;
 	cout << c;
 	cout << "\nd.size() = " << d.size() << endl;
-	cout << d;
-	cout << endl;
+	cout << d << endl;
 	List<double> la{1.44, 2.3, 3.2, 4.34, 5.12};
 	try {
-		la.insert(69.32, 99);
+		la.insert(99, 22);
 	} catch (const std::out_of_range& e) {
 		cout << e.what() << endl;
 	}
 	cout << "la.size() = " << la.size() << endl;
-	cout << la;
-	cout << endl;
+	cout << la << endl;
 	return 0;
 }
