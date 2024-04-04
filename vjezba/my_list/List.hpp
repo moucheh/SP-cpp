@@ -7,12 +7,6 @@
 template<typename T>
 class List {
 public:
-	typedef std::ptrdiff_t difference_type;
-	typedef T value_type;
-	typedef T* pointer;
-	typedef T& reference;
-	typedef std::bidirectional_iterator_tag iterator_category;
-public:
 	struct Node {
 		T data{};
 		Node* next{nullptr};
@@ -71,6 +65,12 @@ private:
 template<typename T>
 class List<T>::iterator {
 public:
+	using difference_type = std::ptrdiff_t;
+	using value_type = T;
+	using pointer = T*;
+	using reference = T&;
+	using iterator_category = std::bidirectional_iterator_tag;
+public:
 	iterator(Node* ptr) : _ptr{ptr} {}
 
 	iterator& operator++() {
@@ -115,6 +115,12 @@ private:
 
 template<typename T>
 class List<T>::reverse_iterator {
+public:
+	using difference_type = std::ptrdiff_t;
+	using value_type = T;
+	using pointer = T*;
+	using reference = T&;
+	using iterator_category = std::bidirectional_iterator_tag;
 public:
 	reverse_iterator(Node* ptr) : _ptr{ptr} {}
 
@@ -162,6 +168,12 @@ private:
 template<typename T>
 class List<T>::const_iterator {
 public:
+	using difference_type = std::ptrdiff_t;
+	using value_type = T;
+	using pointer = T*;
+	using reference = T&;
+	using iterator_category = std::bidirectional_iterator_tag;
+public:
 	const_iterator(Node* ptr) : _ptr{ptr} {}
 
 	const_iterator& operator++() {
@@ -202,6 +214,12 @@ private:
 
 template<typename T>
 class List<T>::const_reverse_iterator {
+public:
+	using difference_type = std::ptrdiff_t;
+	using value_type = T;
+	using pointer = T*;
+	using reference = T&;
+	using iterator_category = std::bidirectional_iterator_tag;
 public:
 	const_reverse_iterator(Node* ptr) : _ptr{ptr} {}
 
