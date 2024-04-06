@@ -238,12 +238,10 @@ MojVektor<T>& MojVektor<T>::push_back(const T& element) {
 	if (arr_ == nullptr) {
 		arr_ = new T[capacity_];
 	}
-	if (size_ < capacity_) {
-		arr_[size_++] = element;
-		return *this;
+	if (size_ >= capacity_) {
+		capacity_ *= 2;
+		realoc();
 	}
-	capacity_ *= 2;
-	realoc();
 	arr_[size_++] = element;
 	return *this;
 }
@@ -253,12 +251,10 @@ MojVektor<T>& MojVektor<T>::push_back(T&& element) {
 	if (arr_ == nullptr) {
 		arr_ = new T[capacity_];
 	}
-	if (size_ < capacity_) {
-		arr_[size_++] = element;
-		return *this;
+	if (size_ >= capacity_) {
+		capacity_ *= 2;
+		realoc();
 	}
-	capacity_ *= 2;
-	realoc();
 	arr_[size_++] = element;
 	return *this;
 }
@@ -285,15 +281,10 @@ void MojVektor<T>::resize(size_t newSize, const T& difference_value) {
 		size_ = newSize;
 		return;
 	}
-	if (newSize < capacity_) {
-		for (auto i = size_; i < newSize; ++i) {
-			arr_[i] = difference_value;
-		}
-		size_ = newSize;
-		return;
+	if (newSize >= capacity_) {
+		capacity_ = newSize;
+		realoc();
 	}
-	capacity_ = newSize;
-	realoc();
 	for (auto i = size_; i < newSize; ++i) {
 		arr_[i] = difference_value;
 	}
