@@ -48,7 +48,7 @@ double Polynomial::operator()(double input) const {
 }
 
 
-Polynomial Polynomial::derivative() {
+Polynomial Polynomial::derivative() const {
 	Polynomial result;
 	for (auto i = size() - 1; i >= 1; --i) {
 		result.push_back(i * (*this)[i]);
