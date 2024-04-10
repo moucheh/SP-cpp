@@ -282,7 +282,7 @@ void MojVektor<T>::resize(size_t newSize, const T& difference_value) {
 		return;
 	}
 	if (newSize >= capacity_) {
-		capacity_ = newSize;
+		capacity_ = 2 * newSize;
 		realoc();
 	}
 	for (auto i = size_; i < newSize; ++i) {
@@ -453,7 +453,7 @@ MojVektor<T> MojVektor<T>::subvector(
 	};
 	result.arr_ = new T[difference];
 	result.size_ = difference;
-	result.capacity_ = difference;
+	result.capacity_ = 2 * difference;
 	std::copy(
 		begin.data(),
 		end.data(),

@@ -223,7 +223,7 @@ MojVektor<T>::~MojVektor() {
 template<typename T>
 void MojVektor<T>::realoc() {
 	auto temp = new T[capacity_];
-	std::copy(
+	std::move(
 		arr_,
 		arr_ + size_,
 		temp
@@ -255,7 +255,7 @@ MojVektor<T>& MojVektor<T>::push_back(T&& element) {
 		capacity_ *= 2;
 		realoc();
 	}
-	arr_[size_++] = element;
+	arr_[size_++] = std::move(element);
 	return *this;
 }
 
@@ -282,7 +282,7 @@ void MojVektor<T>::resize(size_t newSize, const T& difference_value) {
 		return;
 	}
 	if (newSize >= capacity_) {
-		capacity_ = newSize;
+		capacity_ = 2 * newSize;
 		realoc();
 	}
 	for (auto i = size_; i < newSize; ++i) {
@@ -307,7 +307,7 @@ MojVektor<T>& MojVektor<T>::pop_front() {
 		throw std::out_of_range{
 		"Vektor je prazan."
 	};
-	std::copy(
+	std::move(
 		arr_ + 1,
 		arr_ + size_,
 		arr_
@@ -379,7 +379,7 @@ MojVektor<T>& MojVektor<T>::push_front(const T& element) {
 		arr_ = new T[capacity_];
 	}
 	if (size_ < capacity_) {
-		std::copy(
+		std::move(
 			arr_,
 			arr_ + size_,
 			arr_ + 1
@@ -390,7 +390,7 @@ MojVektor<T>& MojVektor<T>::push_front(const T& element) {
 	}
 	capacity_ *= 2;
 	auto temp = new T[capacity_];
-	std::copy(
+	std::move(
 		arr_,
 		arr_ + size_,
 		temp + 1
@@ -408,7 +408,7 @@ MojVektor<T>& MojVektor<T>::push_front(T&& element) {
 		arr_ = new T[capacity_];
 	}
 	if (size_ < capacity_) {
-		std::copy(
+		std::move(
 			arr_,
 			arr_ + size_,
 			arr_ + 1
@@ -419,7 +419,7 @@ MojVektor<T>& MojVektor<T>::push_front(T&& element) {
 	}
 	capacity_ *= 2;
 	auto temp = new T[capacity_];
-	std::copy(
+	std::move(
 		arr_,
 		arr_ + size_,
 		temp + 1
@@ -453,7 +453,7 @@ MojVektor<T> MojVektor<T>::subvector(
 	};
 	result.arr_ = new T[difference];
 	result.size_ = difference;
-	result.capacity_ = difference;
+	result.capacity_ = 2 * difference;
 	std::copy(
 		begin.data(),
 		end.data(),
@@ -472,7 +472,7 @@ typename MojVektor<T>::Iterator MojVektor<T>::erase(
 		--size_;
 		return end();
 	}
-	std::copy(
+	std::move(
 		pos.data() + 1,
 		arr_ + size_,
 		arr_ + (pos.data() - arr_)
@@ -490,7 +490,7 @@ typename MojVektor<T>::Iterator MojVektor<T>::erase(
 		throw std::out_of_range{
 		"Invalid range."
 	};
-	std::copy(
+	std::move(
 		endIt.data(),
 		arr_ + size_,
 		beginIt.data()
@@ -513,7 +513,7 @@ typename MojVektor<T>::Iterator MojVektor<T>::insert(
 	}
 	int insert_pos = pos.data() - arr_;
 	if (size_ < capacity_) {
-		std::copy(
+		std::move(
 			pos.data(),
 			arr_ + size_,
 			arr_ + insert_pos + 1
@@ -524,12 +524,12 @@ typename MojVektor<T>::Iterator MojVektor<T>::insert(
 	}
 	capacity_ *= 2;
 	auto temp = new T[capacity_];
-	std::copy(
+	std::move(
 		arr_,
 		pos.data(),
 		temp
 	);
-	std::copy(
+	std::move(
 		arr_ + insert_pos,
 		arr_ + size_,
 		temp + insert_pos + 1
@@ -555,7 +555,7 @@ typename MojVektor<T>::Iterator MojVektor<T>::insert(
 	}
 	int insert_pos = pos.data() - arr_;
 	if (size_ < capacity_) {
-		std::copy(
+		std::move(
 			pos.data(),
 			arr_ + size_,
 			arr_ + insert_pos + 1
@@ -566,12 +566,12 @@ typename MojVektor<T>::Iterator MojVektor<T>::insert(
 	}
 	capacity_ *= 2;
 	auto temp = new T[capacity_];
-	std::copy(
+	std::move(
 		arr_,
 		pos.data(),
 		temp
 	);
-	std::copy(
+	std::move(
 		arr_ + insert_pos,
 		arr_ + size_,
 		temp + insert_pos + 1

@@ -50,6 +50,7 @@ double Polynomial::operator()(double input) const {
 
 Polynomial Polynomial::derivative() const {
 	Polynomial result;
+	result.resize(this->size(), 0);
 	for (auto i = size() - 1; i >= 1; --i) {
 		result.push_back(i * (*this)[i]);
 	}
