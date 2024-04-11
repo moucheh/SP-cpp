@@ -403,7 +403,7 @@ MojVektor<T>& MojVektor<T>::push_front(const T& element) {
 }
 
 template<typename T>
-MojVektor<T>& MojVektor<T>::push_front(T&& element) {
+MojVektor<T>& MojVektor<T>::push_front(T&& value) {
 	if (arr_ == nullptr) {
 		arr_ = new T[capacity_];
 	}
@@ -413,7 +413,7 @@ MojVektor<T>& MojVektor<T>::push_front(T&& element) {
 			arr_ + size_,
 			arr_ + 1
 		);
-		arr_[0] = element;
+		arr_[0] = std::move(value);
 		++size_;
 		return *this;
 	}
@@ -426,7 +426,7 @@ MojVektor<T>& MojVektor<T>::push_front(T&& element) {
 	);
 	delete[] arr_;
 	arr_ = temp;
-	arr_[0] = element;
+	arr_[0] = std::move(value);
 	++size_;
 	return *this;
 }
@@ -560,7 +560,7 @@ typename MojVektor<T>::Iterator MojVektor<T>::insert(
 			arr_ + size_,
 			arr_ + insert_pos + 1
 		);
-		*pos = value;
+		*pos = std::move(value);
 		++size_;
 		return pos;
 	}
@@ -578,7 +578,7 @@ typename MojVektor<T>::Iterator MojVektor<T>::insert(
 	);
 	delete[] arr_;
 	arr_ = temp;
-	arr_[insert_pos] = value;
+	arr_[insert_pos] = std::move(value);
 	++size_;
 	return Iterator{arr_ + insert_pos};
 }
