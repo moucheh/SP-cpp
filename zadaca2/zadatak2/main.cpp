@@ -26,12 +26,14 @@ int main() {
 
 	std::cout << "\nVrijednosti polinoma P1(x) u tackama [-10, 10]:" << std::endl;
 	for (auto x = -10; x <= 10; ++x) {
-		std::cout << "P(" << std::setw(2) << x << ") = " << p1(x) << '\n';
+		std::cout << "P(" << std::setw(2) << x << ") = "
+				  << std::fixed << std::setprecision(2) << p1(x) << '\n';
 	}
 	auto p3 = p1.derivative();
 	std::cout << "\nVrijednosti izvod polinoma P1(x) u tackama [-10, 10]:" << std::endl;
 	for (auto x = -10; x <= 10; ++x) {
-		std::cout << "P'(" << std::setw(2) << x << ") = " << p3(x) << '\n';
+		std::cout << "P'(" << std::setw(2) << x << ") = "
+				  << std::fixed << std::setprecision(2) << p3(x) << '\n';
 	}
 	return 0;
 }

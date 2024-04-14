@@ -39,8 +39,8 @@ std::ostream& operator<<(std::ostream& out, const Polynomial& p) {
 	return out;
 }
 
-double Polynomial::operator()(double input) const {
-	double result{};
+long double Polynomial::operator()(long double input) const {
+	long double result{};
 	for (auto i = 0; i < size(); ++i) {
 		result += (*this)[i] * pow(input, i);
 	}
@@ -66,7 +66,15 @@ Polynomial Polynomial::operator+(const Polynomial& other) const {
 			   );
 	result.resize(size, 0);
 	for (auto i = 0; i < size; ++i) {
-		result[i] = (*this)[i] + other[i];
+		if (i >= this->size() && i >= other.size()) {
+			result[i] = 0;
+		} else if (i >= this->size()) {
+			result[i] = other[i];
+		} else if (i >= other.size()) {
+			result[i] = (*this)[i];
+		} else {
+			result[i] = (*this)[i] + other[i];
+		}
 	}
 	return result;
 }
@@ -79,7 +87,15 @@ Polynomial Polynomial::operator-(const Polynomial& other) const {
 			   );
 	result.resize(size, 0);
 	for (auto i = 0; i < size; ++i) {
-		result[i] = (*this)[i] - other[i];
+		if (i >= this->size() && i >= other.size()) {
+			result[i] = 0;
+		} else if (i >= this->size()) {
+			result[i] = other[i];
+		} else if (i >= other.size()) {
+			result[i] = (*this)[i];
+		} else {
+			result[i] = (*this)[i] - other[i];
+		}
 	}
 	return result;
 }

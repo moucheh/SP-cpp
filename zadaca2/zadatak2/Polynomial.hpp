@@ -4,10 +4,10 @@
 #include <limits>
 #include <iomanip>
 
-class Polynomial : public MojVektor<double> {
+class Polynomial : public MojVektor<long double> {
 public:
 	Polynomial derivative() const;
-	double operator()(double input) const;
+	long double operator()(long double input) const;
 	Polynomial operator+(const Polynomial& other) const;
 	Polynomial operator-(const Polynomial& other) const;
 	Polynomial operator*(const Polynomial& other) const;
