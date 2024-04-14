@@ -66,9 +66,7 @@ Polynomial Polynomial::operator+(const Polynomial& other) const {
 			   );
 	result.resize(size, 0);
 	for (auto i = 0; i < size; ++i) {
-		if (i >= this->size() && i >= other.size()) {
-			result[i] = 0;
-		} else if (i >= this->size()) {
+		if (i >= this->size()) {
 			result[i] = other[i];
 		} else if (i >= other.size()) {
 			result[i] = (*this)[i];
@@ -87,9 +85,7 @@ Polynomial Polynomial::operator-(const Polynomial& other) const {
 			   );
 	result.resize(size, 0);
 	for (auto i = 0; i < size; ++i) {
-		if (i >= this->size() && i >= other.size()) {
-			result[i] = 0;
-		} else if (i >= this->size()) {
+		if (i >= this->size()) {
 			result[i] = other[i];
 		} else if (i >= other.size()) {
 			result[i] = (*this)[i];
