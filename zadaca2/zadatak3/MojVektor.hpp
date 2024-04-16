@@ -37,6 +37,8 @@ public:
 	Iterator begin() const { return Iterator{arr_}; }
 	Iterator end() const { return Iterator{arr_ + size_}; }
 	Iterator find(const T&) const;
+	template<typename __lambda>
+	Iterator find(const __lambda&) const;
 	Iterator erase(Iterator pos);
 	Iterator insert(Iterator, const T&);
 	Iterator insert(Iterator, T&&);
@@ -439,6 +441,17 @@ typename MojVektor<T>::Iterator MojVektor<T>::find(const T& value) const {
 	}
 	return end();
 }
+
+template<typename T>
+template<typename __lambda>
+typename MojVektor<T>::Iterator MojVektor<T>::find(const __lambda& lambda) const {
+	for (auto it = begin(); it != end(); ++it) {
+		if (lambda(*it))
+			return it;
+	}
+	return end();
+}
+
 
 template<typename T>
 MojVektor<T> MojVektor<T>::subvector(
