@@ -31,11 +31,11 @@ void fix_istream(std::istream& is) {
 }
 
 int input_int(std::istream& is) {
-	int num;
-	while (!(is >> num) || num <= 0) {
+	int number;
+	while (!(is >> number) || number <= 0) {
 		std::cout << "\nInvalid input, please enter a positive integer: ";
 		fix_istream(is);
 	}
 	fix_istream(is);
-	return num;
+	return number;
 }

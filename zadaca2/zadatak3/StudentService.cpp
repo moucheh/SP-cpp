@@ -20,7 +20,7 @@ std::istream& operator>>(std::istream& in, Student& student) {
 	std::cout << "Broj indeksa: ";
 	in >> student.id;
 	std::cout << "Godina studija: ";
-	in >> student.year_of_study;
+	student.year_of_study = input_int(in);
 	std::cout << "Ocjene (prekid s nevalidnim unosom): \n";
 	unsigned short mark;
 	while (in >> mark)
@@ -37,9 +37,9 @@ void StudentService::menu() {
 			  << "1. Unos Studenta\n"
 			  << "2. Izmjena Studenta\n"
 			  << "3. Brisanje Studenta\n"
-			  << "4. Prikaz studenata po imenu\n"
-			  << "5. Prikaz studenata po prezimenu\n"
-			  << "6. Prikaz studenata po prosjeku ocjena\n"
+			  << "4. Prikaz studenata sortiranih po imenu\n"
+			  << "5. Prikaz studenata sortiranih po prezimenu\n"
+			  << "6. Prikaz studenata sortiranih po prosjeku ocjena\n"
 			  << "7. Prikaz studenata s unesene godine\n"
 			  << "8. Prikaz studenata s prosjekom vecim od unesenog\n"
 			  << "9. Izvjestaj o godini studija\n"
@@ -74,4 +74,24 @@ double Student::average_grade() const {
 void fix_istream(std::istream& is) {
 	is.clear();
 	is.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+int input_int(std::istream& is) {
+	int number;
+	while (!(is >> number) || number <= 0) {
+		std::cout << "\nNevalidan ulaz, unesite pozitivan cijeli broj: ";
+		fix_istream(is);
+	}
+	fix_istream(is);
+	return number;
+}
+
+double input_double(std::istream& is) {
+	double number;
+	while (!(is >> number) || number <= 6.) {
+		std::cout << "\nNevalidan ulaz, unesite prosjek veci od 6.0: ";
+		fix_istream(is);
+	}
+	fix_istream(is);
+	return number;
 }

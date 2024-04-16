@@ -1,5 +1,4 @@
 #include <iostream>
-#include <locale>
 #include "StudentService.hpp"
 
 int main() {
@@ -8,7 +7,7 @@ int main() {
 	int option;
 	while (true) {
 		sfet.menu();
-		std::cin >> option;
+		option = input_int(std::cin);
 		if (option == 1) {
 			clrscr();
 			std::cout << separator << '\n'
@@ -40,8 +39,7 @@ int main() {
 				continue;
 			}
 			sfet.edit_menu();
-			int edit_option;
-			std::cin >> edit_option;
+			int edit_option = input_int(std::cin);
 			if (edit_option == 1) {
 				std::cout << "Unesite novo ime: ";
 				std::string first_name;
@@ -59,13 +57,12 @@ int main() {
 				it->id = id;
 			} else if (edit_option == 4) {
 				std::cout << "Unesite novu godinu studija: ";
-				mark_t year;
-				std::cin >> year;
+				int year = input_int(std::cin);
 				it->year_of_study = year;
 			} else if (edit_option == 5) {
 				std::cout << "Unesite ocjene ponovo: ";
-				MojVektor<mark_t> marks;
-				mark_t mark;
+				MojVektor<int> marks;
+				int mark;
 				while (std::cin >> mark)
 					marks.push_back(mark);
 				fix_istream(std::cin);
@@ -150,8 +147,7 @@ int main() {
 				continue;
 			}
 			std::cout << "Unesite godinu: ";
-			mark_t year;
-			std::cin >> year;
+			int year = input_int(std::cin);
 			if (year <= 0 || year > 6 ) {
 				std::cout << "Unijeli ste nevalidan broj godine studija.\n\n";
 				continue;
@@ -171,8 +167,7 @@ int main() {
 				continue;
 			}
 			std::cout << "Unesite prosjek: ";
-			double avg;
-			std::cin >> avg;
+			double avg = input_double(std::cin);
 			bool no_students = true;
 			std::cout << separator << '\n'
 					  << "Studenti koji imaju prosjek ocjena veci od: " << avg << '\n'
@@ -189,8 +184,7 @@ int main() {
 				continue;
 			}
 			std::cout << "Unesite godinu studija za koju pravite izjvestaj: ";
-			mark_t year;
-			std::cin >> year;
+			int year = input_int(std::cin);
 			if (year <= 0 || year > 6 ) {
 				std::cout << "Unijeli ste nevalidan broj godine studija.\n";
 				continue;
@@ -198,7 +192,7 @@ int main() {
 			size_t total_marks{};
 			size_t number_of_students{};
 			double sum{};
-			std::map<mark_t, size_t> number_of_each_mark;
+			std::map<int, size_t> number_of_each_mark;
 			for (const auto& student : sfet) {
 				if (student.year_of_study == year) {
 					++number_of_students;
