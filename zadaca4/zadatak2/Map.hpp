@@ -154,8 +154,9 @@ void Map<K, V>::clear_subtree(Node* root) {
 template<typename K, typename V>
 template<typename F>
 void Map<K, V>::insert(const K& key, F&& value) {
-	if (find(key))
+	if (find(key)) {
 		throw std::invalid_argument{"The key you tried to insert already exists."};
+	}
 
 	++size_;
 	if (empty()) {
