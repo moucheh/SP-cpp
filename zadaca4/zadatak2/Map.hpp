@@ -165,13 +165,13 @@ void Map<K, V>::insert(const K& key, F&& value) {
 
 		while (current) {
 			if (key < current->key) {
-				if (current->left == nullptr) {
+				if (!current->left) {
 					current->left = new Node(key, std::forward<F>(value));
 					return;
 				}
 				current = current->left;
 			} else {
-				if (current->right == nullptr) {
+				if (!current->right) {
 					current->right = new Node(key, std::forward<F>(value));
 					return;
 				}
@@ -253,10 +253,10 @@ const V* Map<K, V>::find(const K& key) const {
 
 template<typename K, typename V>
 V& Map<K, V>::operator[](const K& key) {
-	auto ptr = find(key);
+	auto it = find(key);
 
-	if (ptr != nullptr) {
-		return *ptr;
+	if (it) {
+		return *it;
 	}
 
 	insert(key, V{});
@@ -266,22 +266,22 @@ V& Map<K, V>::operator[](const K& key) {
 
 template<typename K, typename V>
 V& Map<K, V>::at(const K& key) {
-	auto ptr = find(key);
+	auto it = find(key);
 
-	if (ptr == nullptr)
+	if (!it)
 		throw std::out_of_range{"Key not found!"};
 
-	return *ptr;
+	return *it;
 }
 
 template<typename K, typename V>
 const V& Map<K, V>::at(const K& key) const {
-	auto ptr = find(key);
+	auto it = find(key);
 
-	if (ptr == nullptr)
+	if (!it)
 		throw std::out_of_range{"Key not found!"};
 
-	return *ptr;
+	return *it;
 }
 
 template<typename K, typename V>
