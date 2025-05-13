@@ -110,8 +110,8 @@ void Heap<T>::rearrange_downwards(std::size_t root, std::size_t last_child) {
 	while (2 * root <= last_child) {
 		auto child = 2 * root;
 		if (child < last_child && arr_[child] < arr_[child + 1]) ++child;
+		if (arr_[root] >= arr_[child]) break;
 
-		if (arr_[root] > arr_[child]) break;
 		std::swap(arr_[child], arr_[root]);
 		root = child;
 	}
